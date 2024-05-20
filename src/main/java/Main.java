@@ -1,3 +1,4 @@
+package src.main.java;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,8 +43,9 @@ public class Main {
     private static void zipFiles(String path, List<String> arrayList) {
         try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(path))) {
             for (String arr : arrayList) {
-                try (FileInputStream fis = new FileInputStream(arr)) {
-                    ZipEntry entry = new ZipEntry(arr);
+                File file = new File(arr);
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    ZipEntry entry = new ZipEntry(file.getName());
                     zout.putNextEntry(entry);
                     while (fis.available() > 0) {
                         zout.write(fis.read());
